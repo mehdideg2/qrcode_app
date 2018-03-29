@@ -10,6 +10,7 @@ update_msg = "Mise à jour"
 
 class App(tk.Tk):
     MAIN_WINDOW_SIZE = 800, 500
+
     def __init__(self):
         tk.Tk.__init__(self, None)
         self.center_window(self.MAIN_WINDOW_SIZE)
@@ -49,6 +50,11 @@ class App(tk.Tk):
         current_date = datetime.datetime.now().date()
         current_time = datetime.datetime.now().time()
         nserie = 123
+
+        conn = sqlite3.connect('bdd.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM data')
+        print(c.fetchone())
 
 
 if __name__ == "__main__":
