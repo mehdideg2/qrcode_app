@@ -1,0 +1,3 @@
+validate_msg = "Valider"
+cancel_msg = "Annuler"
+update_msg = "Mise à jour"

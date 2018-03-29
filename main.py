@@ -1,4 +1,7 @@
 import tkinter as tk
+import sqlite3
+from sqlite3 import Error
+import datetime
 
 validate_msg = "Valider"
 close_msg = "Fermer"
@@ -43,7 +46,9 @@ class App(tk.Tk):
         self.quit()
 
     def update_data(self):
-        print("télécharger les nouveau QrCode")
+        current_date = datetime.datetime.now().date()
+        current_time = datetime.datetime.now().time()
+        nserie = 123
 
 
 if __name__ == "__main__":
