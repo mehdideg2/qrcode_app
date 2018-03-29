@@ -1,7 +1,7 @@
 import tkinter as tk
 
 validate_msg = "Valider"
-cancel_msg = "Annuler"
+close_msg = "Fermer"
 update_msg = "Mise à jour"
 
 
@@ -28,12 +28,22 @@ class App(tk.Tk):
         right_side_frame.pack(side="right")
         top_side_frame.pack(side="top")
         left_side_frame.pack(side="left")
-        button1 = tk.Button(bottom_frame, width=8, height=2, text=validate_msg)
-        button2 = tk.Button(bottom_frame, width=8, height=2, text=cancel_msg)
-        button3 = tk.Button(right_side_frame, width=8, height=2, text=update_msg)
+        button1 = tk.Button(bottom_frame, width=8, height=2, text=validate_msg, command=self.validate_action)
+        button2 = tk.Button(bottom_frame, width=8, height=2, text=close_msg, command=self.close_action)
+        button3 = tk.Button(right_side_frame, width=8, height=2, text=update_msg, command=self.update_data)
         button1.grid(row=0, column=0, padx=10, pady=5)
         button2.grid(row=0, column=1, padx=10, pady=5)
         button3.grid(row=0, column=0, sticky=tk.N, padx=10, pady=5)
+
+    def validate_action(self):
+        print("Enregistrer")
+
+    def close_action(self):
+        self.destroy()
+        self.quit()
+
+    def update_data(self):
+        print("télécharger les nouveau QrCode")
 
 
 if __name__ == "__main__":
