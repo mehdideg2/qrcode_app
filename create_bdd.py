@@ -3,7 +3,6 @@ import random
 import string
 import datetime
 
-
 def creer_bdd():
     conn = sqlite3.connect('bdd.db')
     c = conn.cursor()
