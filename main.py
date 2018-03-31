@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.filedialog import asksaveasfilename
 import sqlite3
 import datetime
 import os
@@ -6,7 +7,7 @@ import qrcode
 import shutil
 
 
-#chanding working directory to where our main.py is, to use relative paths
+# changing working directory to where our main.py is, to use relative paths
 abspath = os.path.abspath(__file__)
 dir_name = os.path.dirname(abspath)
 os.chdir(dir_name)
@@ -42,10 +43,14 @@ class App(tk.Tk):
         right_side_frame.pack(side="right")
         top_side_frame.pack(side="top")
         self.left_side_frame.pack(side="left", fill=tk.BOTH, expand=True)
-        button1 = tk.Button(bottom_frame, width=8, height=2, text=validate_msg, command=self.validate_action)
-        button2 = tk.Button(bottom_frame, width=8, height=2, text=close_msg, command=self.close_action)
-        button3 = tk.Button(right_side_frame, width=10, height=2, text=update_msg, command=self.update_data)
-        button4 = tk.Button(right_side_frame, width=10, height=2, text=print_all_msg, command=self.print_all)
+        button1 = tk.Button(bottom_frame, width=8, height=2,
+                            text=validate_msg, command=self.validate_action)
+        button2 = tk.Button(bottom_frame, width=8, height=2,
+                            text=close_msg, command=self.close_action)
+        button3 = tk.Button(right_side_frame, width=10,
+                            height=2, text=update_msg, command=self.update_data)
+        button4 = tk.Button(right_side_frame, width=10, height=2,
+                            text=print_all_msg, command=self.print_all)
         button1.grid(row=0, column=0, padx=10, pady=5)
         button2.grid(row=0, column=1, padx=10, pady=5)
         button3.grid(row=0, column=0, sticky=tk.N, padx=10, pady=5)
@@ -55,6 +60,7 @@ class App(tk.Tk):
         print("Enregistrer")
 
     def close_action(self):
+        shutil.rmtree("qrcode_img")
         self.destroy()
         self.quit()
 
@@ -69,7 +75,8 @@ class App(tk.Tk):
         conn.close()
         for widget in self.left_side_frame.winfo_children():
             widget.destroy()
-        self.data_grid = DataGrid(self.left_side_frame, table_columns, self.data)
+        self.data_grid = DataGrid(
+            self.left_side_frame, table_columns, self.data)
 
     def print_all(self):
         self.make_qrcode()
@@ -88,9 +95,9 @@ class App(tk.Tk):
             img = qr.make_image()
             img.save("qrcode_img/" + nserie + ".jpg")
 
-        shutil.make_archive("qrcode_img", 'zip', "qrcode_img")
+        file_name = asksaveasfilename(title="choose archive name")
+        shutil.make_archive(file_name, 'zip', "qrcode_img")
         print("done")
-
 
 
 class DataGrid(tk.Frame):
@@ -107,7 +114,7 @@ class DataGrid(tk.Frame):
             for j in range(self.numberColumns):
                 cell = tk.Label(self, text=str(data[i][j]))
                 line.append(cell)
-                cell.grid(row=i+1, column=j, padx=40)
+                cell.grid(row=i + 1, column=j, padx=40)
             self.data.append(line)
 
         self.results = list()
